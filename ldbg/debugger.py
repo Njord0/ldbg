@@ -7,11 +7,13 @@ from ldbg.internals import StoppedException, ExitedException
 
 from abc import ABC, abstractmethod
 from typing import List, Dict, Union
+from functools import wraps
 
 import lief
 import os
 
 def handle_bp(method):
+    @wraps(method)
     def wrapper(self):
         ip = self.get_instruction_pointer() # eip or rip
 
@@ -32,10 +34,10 @@ def handle_bp(method):
 
         return ret
     
-    wrapper.__doc__ = method.__doc__
     return wrapper
 
 def handle_exception(method):
+    @wraps(method)
     def wrapper(self, *args):
         if self._exception:
             raise self._exception
@@ -49,7 +51,7 @@ def handle_exception(method):
         except ExitedException as e:
             self._exception = ProcessExitedException(str(e))
             raise self._exception
-    wrapper.__doc__ = method.__doc__
+
     return wrapper
 
 class Debugger(ABC):
