@@ -13,7 +13,7 @@ import os
 
 def handle_bp(method):
     def wrapper(self):
-        ip = self._get_instruction_pointer() # eip or rip
+        ip = self.get_instruction_pointer() # eip or rip
 
         bp = self._get_breakpoint_at(ip) 
         if bp:
@@ -24,7 +24,7 @@ def handle_bp(method):
         if bp:
             bp.enable()
 
-        ip = self._get_instruction_pointer()
+        ip = self.get_instruction_pointer()
         bp = self._get_breakpoint_at(ip - 1)
 
         if bp:
@@ -203,7 +203,11 @@ class Debugger(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def _get_instruction_pointer(self) -> int:
+    def get_instruction_pointer(self) -> int:
+        """Gets the instruction pointer
+
+        :returns: iny -- The instruction pointer register value.
+        """
         raise NotImplementedError()
 
     @abstractmethod
@@ -313,7 +317,10 @@ class Debugger32(Debugger):
             raise KeyError(f'No such register for 32 bits process: {regname}')
         return regs[regname]
 
-    def _get_instruction_pointer(self) -> int:
+    @handle_exception
+    def get_instruction_pointer(self) -> int:
+        """Gets the instruction pointer for a 32 bits process, eip, see :func:`Debugger.get_instruction_pointer`.
+        """
         return self.get_reg('eip')
 
     def _set_regs(self, regs: Dict) -> None:
@@ -359,7 +366,10 @@ class Debugger64(Debugger):
             raise KeyError(f'No such register for 64 bits process: {regname}')
         return regs[regname]
 
-    def _get_instruction_pointer(self) -> int:
+    @handle_exception
+    def get_instruction_pointer(self) -> int:
+        """Gets the instruction pointer for a 64 bits process, rip, see :func:`Debugger.get_instruction_pointer`.
+        """
         return self.get_reg('rip')
 
     def _set_regs(self, regs: Dict) -> None:
