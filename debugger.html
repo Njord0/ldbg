@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Debugger &mdash; ldbg  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Stream" href="stream.html" />
+    <link rel="prev" title="Welcome to ldbg’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> ldbg
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Debugger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stream.html">Stream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="breakpoint.html">Breakpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exception.html">Exceptions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ldbg</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Debugger</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/debugger.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="debugger">
+<h1>Debugger<a class="headerlink" href="#debugger" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="debugger.Debugger">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">debugger.</span></code><code class="sig-name descname"><span class="pre">Debugger</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x64</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger" title="Permalink to this definition">¶</a></dt>
+<dd><p>The base debugger class, never instantiated.
+Do not use <a class="reference internal" href="#debugger.Debugger" title="debugger.Debugger"><code class="xref py py-class docutils literal notranslate"><span class="pre">Debugger</span></code></a> constructor, use <a class="reference internal" href="#debugger.Debugger.debug" title="debugger.Debugger.debug"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.debug()</span></code></a> instead.</p>
+<dl class="py method">
+<dt id="debugger.Debugger.debug">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">debug</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts debugging a file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – The absolute or relative path to the executable.</p></li>
+<li><p><strong>parameters</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Commands line arguments to be passed to the program.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="#debugger.Debugger32" title="debugger.Debugger32"><code class="xref py py-class docutils literal notranslate"><span class="pre">Debugger32</span></code></a> or <a class="reference internal" href="#debugger.Debugger64" title="debugger.Debugger64"><code class="xref py py-class docutils literal notranslate"><span class="pre">Debugger64</span></code></a></p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>ValueError - if the file is not an ELF file or if it’s not a supported architecture.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.breakpoint">
+<code class="sig-name descname"><span class="pre">breakpoint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger.breakpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a breakpoint</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>addr</strong> (<em>int</em>) – The address of the breakpoint.</p></li>
+<li><p><strong>enabled</strong> (<em>bool</em>) – Weither or not the breakpoint is enabled.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.pcontinue">
+<code class="sig-name descname"><span class="pre">pcontinue</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger.pcontinue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Continues process execution until it stops</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.step">
+<code class="sig-name descname"><span class="pre">step</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes a single instruction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.read_memory">
+<code class="sig-name descname"><span class="pre">read_memory</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger.read_memory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads bytes at address of current process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>addr</strong> (<em>int</em>) – The address from where bytes will be read.</p></li>
+<li><p><strong>size</strong> (<em>int</em>) – The number of bytes to read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bytes – The bytes read</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>MemoryException - if the address is invalid</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.read_string">
+<code class="sig-name descname"><span class="pre">read_string</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger.read_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads bytes at address until a null bytes is found</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>addr</strong> (<em>int</em>) – The address from where bytes will be read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bytes – the bytes read</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>MemoryException - if the address is invalid</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.get_regs">
+<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">get_regs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">Dict</span><a class="headerlink" href="#debugger.Debugger.get_regs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all registers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dict – A dict associating the register name with its value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.get_reg">
+<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">get_reg</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regname</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#debugger.Debugger.get_reg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a register value by name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>regname</strong> (<em>str</em>) – The name of the register to read.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>int – The value of register.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>KeyError - if the register doesn’t exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.set_reg">
+<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">set_reg</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regname</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#debugger.Debugger.set_reg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets a register value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>regname</strong> (<em>str</em>) – The name of the register.</p></li>
+<li><p><strong>value</strong> (<em>int</em>) – The value to write to the register.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>KeyError - if the register doesn’t exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.pid">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">pid</span></code><a class="headerlink" href="#debugger.Debugger.pid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the PID of the currently attached process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.breakpoints">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">breakpoints</span></code><a class="headerlink" href="#debugger.Debugger.breakpoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all breakpoints</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="breakpoint.html#breakpoint.Breakpoint" title="breakpoint.Breakpoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">breakpoint.Breakpoint</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.stdin">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">stdin</span></code><a class="headerlink" href="#debugger.Debugger.stdin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <a class="reference internal" href="stream.html#stream.Stream" title="stream.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">stream.Stream</span></code></a> associated with stdin for the attached process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="stream.html#stream.Stream" title="stream.Stream">Stream</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.stdout">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">stdout</span></code><a class="headerlink" href="#debugger.Debugger.stdout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <a class="reference internal" href="stream.html#stream.Stream" title="stream.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">stream.Stream</span></code></a> associated with stdout for the attached process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="stream.html#stream.Stream" title="stream.Stream">Stream</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.binary">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">binary</span></code><a class="headerlink" href="#debugger.Debugger.binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the binary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://lief-project.github.io/doc/latest/api/python/elf.html#binary">lief.ELF.Binary</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="debugger.Debugger32">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">debugger.</span></code><code class="sig-name descname"><span class="pre">Debugger32</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x64</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger32" title="Permalink to this definition">¶</a></dt>
+<dd><p>The debugger class for 32 bits process, do not instantiate manualy, use <a class="reference internal" href="#debugger.Debugger.debug" title="debugger.Debugger.debug"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.debug()</span></code></a>.</p>
+<dl class="py method">
+<dt id="debugger.Debugger32.get_regs">
+<code class="sig-name descname"><span class="pre">get_regs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger32.get_regs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all registers for a 32 bits process, see <a class="reference internal" href="#debugger.Debugger.get_regs" title="debugger.Debugger.get_regs"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.get_regs()</span></code></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="debugger.Debugger64">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">debugger.</span></code><code class="sig-name descname"><span class="pre">Debugger64</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x64</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger64" title="Permalink to this definition">¶</a></dt>
+<dd><p>The debugger class for 64 bits process, do not instantiate manualy, use <a class="reference internal" href="#debugger.Debugger.debug" title="debugger.Debugger.debug"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.debug()</span></code></a>.</p>
+<dl class="py method">
+<dt id="debugger.Debugger64.get_regs">
+<code class="sig-name descname"><span class="pre">get_regs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger64.get_regs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all registers for a 64 bits process, see <a class="reference internal" href="#debugger.Debugger.get_regs" title="debugger.Debugger.get_regs"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.get_regs()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger64.get_reg">
+<code class="sig-name descname"><span class="pre">get_reg</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger64.get_reg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a register value by name for a 64 bits process, see <a class="reference internal" href="#debugger.Debugger.get_reg" title="debugger.Debugger.get_reg"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.get_reg()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger64.set_reg">
+<code class="sig-name descname"><span class="pre">set_reg</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger64.set_reg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets a register value for a 64 bits process, see <a class="reference internal" href="#debugger.Debugger.set_reg" title="debugger.Debugger.set_reg"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.set_reg()</span></code></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to ldbg’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="stream.html" class="btn btn-neutral float-right" title="Stream" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Njörd.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
