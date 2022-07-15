@@ -15,7 +15,7 @@ class Stream:
         except FileNotFoundError:
             self._file = None
 
-    def read(self, n: int) -> bytes:
+    def read(self, n: int = 0) -> bytes:
         """Reads `n` bytes from stream
 
         :param n: The number of bytes to read.
@@ -24,7 +24,10 @@ class Stream:
         :raises: ValueError - if `n` is negative 
         """
         if n < 0:
-            raise ValueError('Size must be a positive integer')
+            raise ValueError('n must be a positive integer')
+
+        if n == 0:
+            return self._file.read()
 
         return self._file.read(n)
 
