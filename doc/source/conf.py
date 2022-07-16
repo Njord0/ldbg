@@ -51,7 +51,8 @@ html_static_path = ['_static']
 
 html_sidebars = {
     '**': [
-        'searchbox.html',
+        'globaltoc.html'
     ]
 }
+
 autodoc_member_order = 'bysource'
