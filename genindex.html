@@ -33,6 +33,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Welcome to ldbg’s documentation!</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debugger.html">Debugger</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stream.html">Stream</a></li>
 <li class="toctree-l1"><a class="reference internal" href="breakpoint.html">Breakpoint</a></li>
@@ -71,6 +72,7 @@
  | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
@@ -134,9 +136,19 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="debugger.html#debugger.Debugger.get_instruction_pointer">get_instruction_pointer() (debugger.Debugger method)</a>
+
+      <ul>
+        <li><a href="debugger.html#debugger.Debugger32.get_instruction_pointer">(debugger.Debugger32 method)</a>
+</li>
+        <li><a href="debugger.html#debugger.Debugger64.get_instruction_pointer">(debugger.Debugger64 method)</a>
+</li>
+      </ul></li>
       <li><a href="debugger.html#debugger.Debugger.get_reg">get_reg() (debugger.Debugger method)</a>
 
       <ul>
+        <li><a href="debugger.html#debugger.Debugger32.get_reg">(debugger.Debugger32 method)</a>
+</li>
         <li><a href="debugger.html#debugger.Debugger64.get_reg">(debugger.Debugger64 method)</a>
 </li>
       </ul></li>
@@ -148,6 +160,18 @@
         <li><a href="debugger.html#debugger.Debugger32.get_regs">(debugger.Debugger32 method)</a>
 </li>
         <li><a href="debugger.html#debugger.Debugger64.get_regs">(debugger.Debugger64 method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="exception.html#exceptions.ProcessExitedException.n">n() (exceptions.ProcessExitedException property)</a>
+
+      <ul>
+        <li><a href="exception.html#exceptions.ProcessSignaledException.n">(exceptions.ProcessSignaledException property)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -189,13 +213,17 @@
       <li><a href="debugger.html#debugger.Debugger.set_reg">set_reg() (debugger.Debugger method)</a>
 
       <ul>
+        <li><a href="debugger.html#debugger.Debugger32.set_reg">(debugger.Debugger32 method)</a>
+</li>
         <li><a href="debugger.html#debugger.Debugger64.set_reg">(debugger.Debugger64 method)</a>
 </li>
       </ul></li>
-      <li><a href="debugger.html#debugger.Debugger.stdin">stdin() (debugger.Debugger property)</a>
+      <li><a href="debugger.html#debugger.Debugger.stderr">stderr() (debugger.Debugger property)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="debugger.html#debugger.Debugger.stdin">stdin() (debugger.Debugger property)</a>
+</li>
       <li><a href="debugger.html#debugger.Debugger.stdout">stdout() (debugger.Debugger property)</a>
 </li>
       <li><a href="debugger.html#debugger.Debugger.step">step() (debugger.Debugger method)</a>

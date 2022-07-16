@@ -36,6 +36,18 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Welcome to ldbg’s documentation!</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#examples">Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#links">Links</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Debugger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stream.html">Stream</a></li>
+<li class="toctree-l3"><a class="reference internal" href="breakpoint.html">Breakpoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exception.html">Exceptions</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Debugger</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stream.html">Stream</a></li>
 <li class="toctree-l1"><a class="reference internal" href="breakpoint.html">Breakpoint</a></li>
@@ -134,7 +146,7 @@ Do not use <a class="reference internal" href="#debugger.Debugger" title="debugg
 
 <dl class="py method">
 <dt id="debugger.Debugger.read_memory">
-<code class="sig-name descname"><span class="pre">read_memory</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger.read_memory" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">read_memory</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">bytes</span><a class="headerlink" href="#debugger.Debugger.read_memory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads bytes at address of current process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -154,7 +166,7 @@ Do not use <a class="reference internal" href="#debugger.Debugger" title="debugg
 
 <dl class="py method">
 <dt id="debugger.Debugger.read_string">
-<code class="sig-name descname"><span class="pre">read_string</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger.read_string" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">read_string</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">bytes</span><a class="headerlink" href="#debugger.Debugger.read_string" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads bytes at address until a null bytes is found</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -193,6 +205,17 @@ Do not use <a class="reference internal" href="#debugger.Debugger" title="debugg
 </dd>
 <dt class="field-odd">Raises</dt>
 <dd class="field-odd"><p>KeyError - if the register doesn’t exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.get_instruction_pointer">
+<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">get_instruction_pointer</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#debugger.Debugger.get_instruction_pointer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the instruction pointer</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>iny – The instruction pointer register value.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -262,6 +285,17 @@ Do not use <a class="reference internal" href="#debugger.Debugger" title="debugg
 </dd></dl>
 
 <dl class="py method">
+<dt id="debugger.Debugger.stderr">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">stderr</span></code><a class="headerlink" href="#debugger.Debugger.stderr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the <a class="reference internal" href="stream.html#stream.Stream" title="stream.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">stream.Stream</span></code></a> associated with stderr for the attached process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="stream.html#stream.Stream" title="stream.Stream">Stream</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="debugger.Debugger.binary">
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">binary</span></code><a class="headerlink" href="#debugger.Debugger.binary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the binary</p>
@@ -280,8 +314,26 @@ Do not use <a class="reference internal" href="#debugger.Debugger" title="debugg
 <dd><p>The debugger class for 32 bits process, do not instantiate manualy, use <a class="reference internal" href="#debugger.Debugger.debug" title="debugger.Debugger.debug"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.debug()</span></code></a>.</p>
 <dl class="py method">
 <dt id="debugger.Debugger32.get_regs">
-<code class="sig-name descname"><span class="pre">get_regs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger32.get_regs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_regs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">Dict</span><a class="headerlink" href="#debugger.Debugger32.get_regs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets all registers for a 32 bits process, see <a class="reference internal" href="#debugger.Debugger.get_regs" title="debugger.Debugger.get_regs"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.get_regs()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger32.get_reg">
+<code class="sig-name descname"><span class="pre">get_reg</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regname</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#debugger.Debugger32.get_reg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a register value by name for a 32 bits process, see <a class="reference internal" href="#debugger.Debugger.get_reg" title="debugger.Debugger.get_reg"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.get_reg()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger32.get_instruction_pointer">
+<code class="sig-name descname"><span class="pre">get_instruction_pointer</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#debugger.Debugger32.get_instruction_pointer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the instruction pointer for a 32 bits process, eip, see <a class="reference internal" href="#debugger.Debugger.get_instruction_pointer" title="debugger.Debugger.get_instruction_pointer"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.get_instruction_pointer()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger32.set_reg">
+<code class="sig-name descname"><span class="pre">set_reg</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regname</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#debugger.Debugger32.set_reg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets a register value for a 32 bits process, see <a class="reference internal" href="#debugger.Debugger.set_reg" title="debugger.Debugger.set_reg"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.set_reg()</span></code></a>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -292,19 +344,25 @@ Do not use <a class="reference internal" href="#debugger.Debugger" title="debugg
 <dd><p>The debugger class for 64 bits process, do not instantiate manualy, use <a class="reference internal" href="#debugger.Debugger.debug" title="debugger.Debugger.debug"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.debug()</span></code></a>.</p>
 <dl class="py method">
 <dt id="debugger.Debugger64.get_regs">
-<code class="sig-name descname"><span class="pre">get_regs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger64.get_regs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_regs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">Dict</span><a class="headerlink" href="#debugger.Debugger64.get_regs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets all registers for a 64 bits process, see <a class="reference internal" href="#debugger.Debugger.get_regs" title="debugger.Debugger.get_regs"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.get_regs()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="debugger.Debugger64.get_reg">
-<code class="sig-name descname"><span class="pre">get_reg</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger64.get_reg" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_reg</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regname</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#debugger.Debugger64.get_reg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets a register value by name for a 64 bits process, see <a class="reference internal" href="#debugger.Debugger.get_reg" title="debugger.Debugger.get_reg"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.get_reg()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="debugger.Debugger64.get_instruction_pointer">
+<code class="sig-name descname"><span class="pre">get_instruction_pointer</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#debugger.Debugger64.get_instruction_pointer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the instruction pointer for a 64 bits process, rip, see <a class="reference internal" href="#debugger.Debugger.get_instruction_pointer" title="debugger.Debugger.get_instruction_pointer"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.get_instruction_pointer()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="debugger.Debugger64.set_reg">
-<code class="sig-name descname"><span class="pre">set_reg</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger64.set_reg" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">set_reg</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regname</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#debugger.Debugger64.set_reg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets a register value for a 64 bits process, see <a class="reference internal" href="#debugger.Debugger.set_reg" title="debugger.Debugger.set_reg"><code class="xref py py-func docutils literal notranslate"><span class="pre">Debugger.set_reg()</span></code></a>.</p>
 </dd></dl>
 

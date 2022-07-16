@@ -35,6 +35,18 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Welcome to ldbg’s documentation!</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#examples">Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#links">Links</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="debugger.html">Debugger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stream.html">Stream</a></li>
+<li class="toctree-l3"><a class="reference internal" href="breakpoint.html">Breakpoint</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Exceptions</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="debugger.html">Debugger</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stream.html">Stream</a></li>
 <li class="toctree-l1"><a class="reference internal" href="breakpoint.html">Breakpoint</a></li>
@@ -71,12 +83,34 @@
 <dt id="exceptions.ProcessSignaledException">
 <em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">ProcessSignaledException</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#exceptions.ProcessSignaledException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exception raised when process stopped for a certain reason</p>
+<dl class="py method">
+<dt id="exceptions.ProcessSignaledException.n">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">n</span></code><a class="headerlink" href="#exceptions.ProcessSignaledException.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the signal number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
 <dt id="exceptions.ProcessExitedException">
 <em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">ProcessExitedException</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#exceptions.ProcessExitedException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exception raised when process exited (exit or _exit)</p>
+<dl class="py method">
+<dt id="exceptions.ProcessExitedException.n">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">n</span></code><a class="headerlink" href="#exceptions.ProcessExitedException.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the exit code</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>

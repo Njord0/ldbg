@@ -34,7 +34,19 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Welcome to ldbg’s documentation!</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#links">Links</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="debugger.html">Debugger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stream.html">Stream</a></li>
+<li class="toctree-l3"><a class="reference internal" href="breakpoint.html">Breakpoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exception.html">Exceptions</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="debugger.html">Debugger</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stream.html">Stream</a></li>
 <li class="toctree-l1"><a class="reference internal" href="breakpoint.html">Breakpoint</a></li>
@@ -67,21 +79,51 @@
              
   <section id="welcome-to-ldbg-s-documentation">
 <h1>Welcome to ldbg’s documentation!<a class="headerlink" href="#welcome-to-ldbg-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Welcome to ldbg’s documentation …</p>
+<p>Welcome to ldbg’s documentation</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p><cite>ldbg</cite> can be installed from the github <a class="reference external" href="https://github.com/njord0/ldbg">repository</a>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/njord0/ldbg
+$ <span class="nb">cd</span> ldbg
+$ python3 -m pip install requirements.txt
+$ python3 setup.py install
+</pre></div>
+</div>
 </section>
 <section id="examples">
-<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ldbg</span> <span class="kn">import</span> <span class="n">Debugger</span>
+<span class="kn">import</span> <span class="nn">ldbg</span>
+
+<span class="n">p</span>  <span class="o">=</span> <span class="n">Debugger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;./executable&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Process started with PID: </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">pid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The process is stopped at the entry point by default, </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">get_instruction_pointer</span><span class="p">())</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+   <span class="n">p</span><span class="o">.</span><span class="n">pcontinue</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">ldbg</span><span class="o">.</span><span class="n">ProcessExitedException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The process exited with code: &#39;</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span>
+   <span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="p">)</span> <span class="c1">## printing the output of the program</span>
+</pre></div>
+</div>
+<p>Where <cite>executable</cite> can either be a x86 or a x86-64 ELF file.</p>
 </section>
-<section id="classes">
-<h1>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h1>
+<section id="links">
+<h2>Links<a class="headerlink" href="#links" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
-<ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Welcome to ldbg’s documentation!</a></li>
 <li class="toctree-l1"><a class="reference internal" href="debugger.html">Debugger</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stream.html">Stream</a></li>
 <li class="toctree-l1"><a class="reference internal" href="breakpoint.html">Breakpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exception.html">Exceptions</a></li>
 </ul>
 </div>
+</section>
 </section>
 
 
