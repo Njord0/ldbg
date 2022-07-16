@@ -39,34 +39,35 @@ create_process(PyObject* self, PyObject* args)
     if (!execve_arguments)
         return NULL; // error already set by string_list_to_c_array
 
-
-    char tmppath[L_tmpnam + 1];
-    tmpnam(tmppath);
     
-    int pin[2], pout[2];
+    int pin[2], pout[2], perr[2];
     pipe(pin);
     pipe(pout);
+    pipe(perr);
 
     int pid = fork();
     if (pid == 0)
     {
         close(pout[0]);
+        close(perr[0]);
         close(pin[1]);
 
         dup2(pout[1], 1);
         dup2(pin[0], 0);
+        dup2(perr[1], 2);
 
-        ptrace(PTRACE_TRACEME, 0, NULL, NULL);        
+        ptrace(PTRACE_TRACEME, 0, NULL, NULL);     
         execve(path, execve_arguments, NULL);
     }
 
     close(pin[0]);
     close(pout[1]);
+    close(perr[1]);
 
     free(execve_arguments);
     wait(NULL);
 
-    return Py_BuildValue("(iii)", pid, pin[1], pout[0]);
+    return Py_BuildValue("(iiii)", pid, pin[1], pout[0], perr[0]);
 }
 
 PyObject*
@@ -766,10 +767,7 @@ peek_text(PyObject* self, PyObject* args)
                 PyExc_ValueError, "Invalid or not attached PID: %lld", pid
             );
         }
-        else
-        {
-            printf("%lld\n", errno);
-        }
+
         return NULL;
     }
 

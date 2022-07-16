@@ -66,7 +66,7 @@ class Debugger(ABC):
         self._exception = None
         self._binary = lief.parse(path)
 
-        self._pid, self._stdin_fd, self._stdout_fd = internals.create_process(path, parameters)
+        self._pid, self._stdin_fd, self._stdout_fd, self._stderr_fd = internals.create_process(path, parameters)
         binary = lief.parse(self._path)
 
         self._breakpoints = []
@@ -81,6 +81,7 @@ class Debugger(ABC):
         self.pcontinue()
 
         self._stdout = Stream(self._stdout_fd)
+        self._stderr = Stream(self._stderr_fd)
         self._stdin = Stream(self._stdin_fd, writeable=True)
 
     @staticmethod
@@ -269,6 +270,15 @@ class Debugger(ABC):
         
         """
         return self._stdout
+
+    @property
+    def stderr(self) -> Stream:
+        """Returns the :class:`stream.Stream` associated with stderr for the attached process
+        
+        :type: Stream
+
+        """
+        return self._stderr
 
     @property
     def binary(self) -> lief.ELF.Binary:

@@ -7,15 +7,7 @@ class Stream:
         self._fd = fd
         self._writeable = writeable
         
-        mode = 'wb' if writeable else 'rb'
-
-        try:
-            self._file = open(f'/proc/self/fd/{fd}', mode)
-            os.set_blocking(self._file.fileno(), False)
-        except FileNotFoundError:
-            self._file = None
-
-    def read(self, n: int = 0) -> bytes:
+    def read(self, n: int) -> bytes:
         """Reads `n` bytes from stream
 
         :param n: The number of bytes to read.
@@ -23,13 +15,10 @@ class Stream:
         :returns: bytes -- the read bytes.
         :raises: ValueError - if `n` is negative 
         """
-        if n < 0:
+        if n <= 0:
             raise ValueError('n must be a positive integer')
 
-        if n == 0:
-            return self._file.read()
-
-        return self._file.read(n)
+        return os.read(self._fd, n)
 
     def write(self, data: bytes) -> None:
         """Write `data` to stream
@@ -42,4 +31,4 @@ class Stream:
         if not self._writeable:
             raise IOError('Stream is not writeable (stdout|stderr)')
 
-        print(self._file.write(data))
+        os.write(self._fd, data)
