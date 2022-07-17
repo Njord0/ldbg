@@ -7,11 +7,11 @@ ldbg is a simple debugging python API for x86 and x86-64 ELF executables.
 ldbg is basically a wrapper around linux ptrace utility, made for automatizing your reverse-engineering tasks or building your own tiny debugger from scratch!
 
 
-The exposed python API is meant to be simple to use and to understand, the documentation is available (here)[https://njord0.github.io/ldbg].
+The exposed python API is meant to be simple to use and to understand, the documentation is available [here](https://njord0.github.io/ldbg).
 
 ## Installation
 
-ldbg can be installed by cloning this repository and running the (setup.py)[https://github.com/njord0/ldbg/main/setup.py] script :
+ldbg can be installed by cloning this repository and running the [setup.py](https://github.com/njord0/ldbg/main/setup.py) script :
 
 ```shell
 $ git clone https://github.com/njord0/ldbg
@@ -42,3 +42,5 @@ print(
 ```
 
 Where `executable` can either be a x86 or a x86-64 ELF file.
+
+More examples are available [here](https://njord0.github.io/ldbg/)
