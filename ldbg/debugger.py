@@ -2,6 +2,7 @@ from ldbg import internals
 from ldbg.breakpoint import Breakpoint
 from ldbg.stream import Stream
 from ldbg.exceptions import ProcessExitedException, ProcessSignaledException
+from ldbg.function import Function, _parse_functions
 
 from ldbg.internals import StoppedException, ExitedException
 
@@ -83,6 +84,8 @@ class Debugger(ABC):
         self._stdout = Stream(self._stdout_fd)
         self._stderr = Stream(self._stderr_fd)
         self._stdin = Stream(self._stdin_fd, writeable=True)
+
+        self._functions = _parse_functions(self._binary, self._base_addr)
 
     @staticmethod
     def debug(path: str, parameters: List[str]=[]):
@@ -182,7 +185,23 @@ class Debugger(ABC):
             n = self.read_memory(addr, 1)
         return out
 
+    def get_function_by_name(self, name: str) -> Function:
+        """Returns the function with name `name`
 
+        :param name: The function name.
+        :type name: str
+        :returns: :class:`function.Function` -- the function
+
+        """
+        for f in self.functions:
+            if f.name == name:
+                return f
+        
+        for f in self.functions:
+            if f.name.startswith(name):
+                return f
+        return None
+        
 
     @abstractmethod
     def get_regs(self) -> Dict:
@@ -209,7 +228,7 @@ class Debugger(ABC):
     def get_instruction_pointer(self) -> int:
         """Gets the instruction pointer
 
-        :returns: iny -- The instruction pointer register value.
+        :returns: int -- The instruction pointer register value.
         """
         raise NotImplementedError()
 
@@ -290,6 +309,22 @@ class Debugger(ABC):
 
         """
         return self._binary
+
+    @property
+    def base_address(self) -> int:
+        """Returns the binary base address
+
+        :type: int
+        """
+        return self._base_addr
+
+    @property
+    def functions(self) -> List[Function]:
+        """Returns the list of defined functions
+
+        :type: List[:class:`function.Function`]
+        """
+        return self._functions
 
     def _get_breakpoint_at(self, addr: int) -> Breakpoint:
         for bp in self.breakpoints:
