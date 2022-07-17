@@ -43,6 +43,7 @@
 <li class="toctree-l3"><a class="reference internal" href="stream.html">Stream</a></li>
 <li class="toctree-l3"><a class="reference internal" href="breakpoint.html">Breakpoint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exception.html">Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="function.html">Function</a></li>
 </ul>
 </li>
 </ul>
@@ -51,6 +52,7 @@
 <li class="toctree-l1"><a class="reference internal" href="stream.html">Stream</a></li>
 <li class="toctree-l1"><a class="reference internal" href="breakpoint.html">Breakpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exception.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="function.html">Function</a></li>
 </ul>
 
         </div>
@@ -111,6 +113,61 @@ $ python3 setup.py install
 </pre></div>
 </div>
 <p>Where <cite>executable</cite> can either be a x86 or a x86-64 ELF file.</p>
+<p>Here is a simple example of usage of the functions property to intercept functions calls and modify parameters:</p>
+<p>source.c :</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// gcc -o executable source.c</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">power2</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;a^2 = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+
+<span class="w">   </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Give me a number: &quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">   </span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">   </span><span class="n">power2</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>And the script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ldbg</span> <span class="kn">import</span> <span class="n">Debugger</span>
+<span class="kn">import</span> <span class="nn">ldbg</span>
+
+<span class="n">p</span>  <span class="o">=</span> <span class="n">Debugger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;./executable&#39;</span><span class="p">)</span>
+
+<span class="n">power2</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_function_by_name</span><span class="p">(</span><span class="s1">&#39;power2&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">xref</span> <span class="ow">in</span> <span class="n">power2</span><span class="o">.</span><span class="n">call_xrefs</span><span class="p">:</span>
+   <span class="n">p</span><span class="o">.</span><span class="n">breakpoint</span><span class="p">(</span><span class="n">xref</span><span class="p">)</span>
+
+<span class="n">p</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;10</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># feeding scanf</span>
+<span class="n">p</span><span class="o">.</span><span class="n">pcontinue</span><span class="p">()</span>
+
+<span class="n">rdi</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_reg</span><span class="p">(</span><span class="s1">&#39;rdi&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Intercepted value: </span><span class="si">{</span><span class="n">rdi</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_reg</span><span class="p">(</span><span class="s1">&#39;rdi&#39;</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+   <span class="n">p</span><span class="o">.</span><span class="n">pcontinue</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">ldbg</span><span class="o">.</span><span class="n">ProcessExitedException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;process exited with status code: &#39;</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And the output of program will be:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Intercepted value: 10
+b&#39;Give me a number: 42^2 = 1764\n&#39;
+process exited with status code:  0
+</pre></div>
+</div>
 </section>
 <section id="links">
 <h2>Links<a class="headerlink" href="#links" title="Permalink to this headline">¶</a></h2>
@@ -121,6 +178,7 @@ $ python3 setup.py install
 <li class="toctree-l1"><a class="reference internal" href="stream.html">Stream</a></li>
 <li class="toctree-l1"><a class="reference internal" href="breakpoint.html">Breakpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exception.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="function.html">Function</a></li>
 </ul>
 </div>
 </section>
