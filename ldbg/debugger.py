@@ -112,7 +112,7 @@ class Debugger(ABC):
         raise ValueError(f'Unsupported architecture: {elf.header.machine_type}')
 
     def breakpoint(self, addr: int, enabled: bool=True):
-        """Add a breakpoint
+        """Adds a breakpoint
         
         :param addr: The address of the breakpoint.
         :type addr: int
@@ -125,6 +125,18 @@ class Debugger(ABC):
         self._breakpoints.append(bp)
 
         return bp
+
+    def get_breakpoint_at(self, addr) -> Breakpoint:
+        """Returns the breakpoint at address
+
+        :param addr: The address of the breakpoint.
+        :type addr: int
+        :returns: :class:`breakpoint.Breakpoint` -- The breakpoint if found, else None.
+        """
+        for breakpoint in self.breakpoints:
+            if breakpoint.addr == addr:
+                return breakpoint
+        return None
 
     @handle_bp
     @handle_exception
@@ -159,12 +171,23 @@ class Debugger(ABC):
         :raises: MemoryException - if the address is invalid
 
         """
+        # disable breakpoints (temporarily)
+        saved_state = [bp.enabled for bp in self.breakpoints]
+        for bp in self.breakpoints:
+            bp.disable()
+
         out = b""
 
         while len(out) < size:
             a = internals.peek_text(self.pid, addr) & 0xffffffff
             addr += 4
             out += a.to_bytes(4, byteorder='little')
+
+        # restore breakpoints
+        for i, bp in enumerate(self.breakpoints):
+            if saved_state[i]:
+                bp.enable()
+
         return out[:size]
 
     @handle_exception
