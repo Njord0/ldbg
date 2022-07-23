@@ -605,7 +605,7 @@ singleblock(PyObject* self, PyObject* args)
         if (errno == EPERM || errno == EIO)
         {
             PyErr_Format(
-                ProcessException, "Can't singleblock on process with PID: %lld", pid
+                ProcessException, "Can't singleblock process with PID: %lld", pid
             );
         }
         else
@@ -647,7 +647,48 @@ pcontinue(PyObject* self, PyObject* args)
         if (errno == EPERM || errno == EIO)
         {
             PyErr_Format(
-                ProcessException, "Can't continue on process with PID: %lld", pid
+                ProcessException, "Can't continue process with PID: %lld", pid
+            );
+        }
+        else
+        {
+            PyErr_Format(
+                PyExc_ValueError, "Invalid or not attached PID: %lld", pid
+            );
+        }
+        return NULL;
+    }
+
+    int status;
+    waitpid(pid, &status, WSTOPPED);
+
+    if (!check_status(status))
+        return NULL;
+
+    Py_RETURN_NONE;
+}
+
+PyObject* psyscall(PyObject* self, PyObject* args)
+{
+    Py_ssize_t pid;
+
+    if (!PyArg_ParseTuple(args, "n", &pid))
+        return NULL;
+
+    if (pid < 0)
+    {
+        PyErr_Format(
+            PyExc_ValueError, "Invalid PID: %lld", pid
+        );
+        return NULL;
+    }
+
+    if (ptrace(PTRACE_SYSCALL, pid, NULL, NULL) == -1)
+    {
+        if (errno == EPERM || errno == EIO)
+        {
+            PyErr_Format(
+                ProcessException, "Can't continue process with PID: %lld", pid
             );
         }
         else

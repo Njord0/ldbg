@@ -14,6 +14,7 @@ static struct PyMethodDef methods[] = {
 
     {"singleblock", singleblock, METH_VARARGS, "singleblock process"},
     {"pcontinue", pcontinue, METH_VARARGS, "continue process"},
+    {"syscall", psyscall, METH_VARARGS, "continue until a syscall is reached"},
     {"step", step, METH_VARARGS, "step"},
 
     {"peek_text", peek_text, METH_VARARGS, "peek_text"},

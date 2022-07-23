@@ -76,6 +76,11 @@ PyObject* singleblock(PyObject* self, PyObject* args);
 PyObject* pcontinue(PyObject* self, PyObject* args);
 
 /**
+ *  Ptrace syscall on a process with a gived PID
+ */
+PyObject* psyscall(PyObject* self, PyObject* args);
+
+/**
  * Ptrace step on a process with a given PID
  */
 PyObject* step(PyObject* self, PyObject* args);

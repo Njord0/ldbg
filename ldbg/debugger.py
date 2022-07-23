@@ -158,6 +158,15 @@ class Debugger(ABC):
         """
         internals.step(self.pid)
 
+    @handle_bp
+    @handle_exception
+    def syscall(self):
+        """Continues process execution until a syscall occur, call it a second time to watch syscall return value
+
+        :returns: None
+        """
+        internals.syscall(self.pid)
+
     @handle_exception
     def read_memory(self, addr: int, size: int) -> bytes:
         """Reads bytes at address of current process
