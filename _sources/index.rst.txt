@@ -24,6 +24,8 @@ Installation
 Examples
 --------
 
+Simple program
+^^^^^^^^^^^^^^
 .. code-block:: python
 
    from ldbg import Debugger
@@ -46,6 +48,8 @@ Examples
 
 Where `executable` can either be a x86 or a x86-64 ELF file.
 
+Interception of function calls and modifying parameters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Here is a simple example of usage of the functions property to intercept functions calls and modify parameters:
 
 source.c :
@@ -110,6 +114,38 @@ And the output of program will be:
    b'Give me a number: 42^2 = 1764\n'
    process exited with status code:  0
 
+
+A simple strace like tool
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+   from ldbg import Debugger
+   import ldbg
+
+   p  = Debugger.debug('./executable')
+
+   format_str = '{0:4} {1:20} {2:20} {3:20}' 
+
+   print(format_str.format('no', 'rdi', 'rsi', 'rdx'))
+
+   while True:
+      p.syscall() # stops before syscall execution
+
+      regs = p.get_regs()
+
+      rax, rdi, rsi, rdx = regs['orig_rax'], regs['rdi'], regs['rsi'], regs['rdx']
+
+      print(format_str.format(hex(rax)[2:], hex(rdi)[2:], hex(rsi)[2:], hex(rdx)[2:]), end="")
+
+      try:
+         p.syscall() # stops after syscall
+      except ldbg.ProcessExitedException as e:
+         exit(0)
+
+      rax = p.get_reg('rax')
+      
+      print('= ' + hex(rax)[2:])
 
 
 Links

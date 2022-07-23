@@ -37,7 +37,12 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Welcome to ldbg’s documentation!</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#simple-program">Simple program</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interception-of-function-calls-and-modifying-parameters">Interception of function calls and modifying parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-simple-strace-like-tool">A simple strace like tool</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#links">Links</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="debugger.html">Debugger</a></li>
 <li class="toctree-l3"><a class="reference internal" href="stream.html">Stream</a></li>
@@ -94,6 +99,8 @@ $ python3 setup.py install
 </section>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<section id="simple-program">
+<h3>Simple program<a class="headerlink" href="#simple-program" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ldbg</span> <span class="kn">import</span> <span class="n">Debugger</span>
 <span class="kn">import</span> <span class="nn">ldbg</span>
 
@@ -113,6 +120,9 @@ $ python3 setup.py install
 </pre></div>
 </div>
 <p>Where <cite>executable</cite> can either be a x86 or a x86-64 ELF file.</p>
+</section>
+<section id="interception-of-function-calls-and-modifying-parameters">
+<h3>Interception of function calls and modifying parameters<a class="headerlink" href="#interception-of-function-calls-and-modifying-parameters" title="Permalink to this headline">¶</a></h3>
 <p>Here is a simple example of usage of the functions property to intercept functions calls and modify parameters:</p>
 <p>source.c :</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// gcc -o executable source.c</span>
@@ -168,6 +178,38 @@ b&#39;Give me a number: 42^2 = 1764\n&#39;
 process exited with status code:  0
 </pre></div>
 </div>
+</section>
+<section id="a-simple-strace-like-tool">
+<h3>A simple strace like tool<a class="headerlink" href="#a-simple-strace-like-tool" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ldbg</span> <span class="kn">import</span> <span class="n">Debugger</span>
+<span class="kn">import</span> <span class="nn">ldbg</span>
+
+<span class="n">p</span>  <span class="o">=</span> <span class="n">Debugger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;./executable&#39;</span><span class="p">)</span>
+
+<span class="n">format_str</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0:4}</span><span class="s1"> </span><span class="si">{1:20}</span><span class="s1"> </span><span class="si">{2:20}</span><span class="s1"> </span><span class="si">{3:20}</span><span class="s1">&#39;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">format_str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;rdi&#39;</span><span class="p">,</span> <span class="s1">&#39;rsi&#39;</span><span class="p">,</span> <span class="s1">&#39;rdx&#39;</span><span class="p">))</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+   <span class="n">p</span><span class="o">.</span><span class="n">syscall</span><span class="p">()</span> <span class="c1"># stops before syscall execution</span>
+
+   <span class="n">regs</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_regs</span><span class="p">()</span>
+
+   <span class="n">rax</span><span class="p">,</span> <span class="n">rdi</span><span class="p">,</span> <span class="n">rsi</span><span class="p">,</span> <span class="n">rdx</span> <span class="o">=</span> <span class="n">regs</span><span class="p">[</span><span class="s1">&#39;orig_rax&#39;</span><span class="p">],</span> <span class="n">regs</span><span class="p">[</span><span class="s1">&#39;rdi&#39;</span><span class="p">],</span> <span class="n">regs</span><span class="p">[</span><span class="s1">&#39;rsi&#39;</span><span class="p">],</span> <span class="n">regs</span><span class="p">[</span><span class="s1">&#39;rdx&#39;</span><span class="p">]</span>
+
+   <span class="nb">print</span><span class="p">(</span><span class="n">format_str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">rax</span><span class="p">)[</span><span class="mi">2</span><span class="p">:],</span> <span class="nb">hex</span><span class="p">(</span><span class="n">rdi</span><span class="p">)[</span><span class="mi">2</span><span class="p">:],</span> <span class="nb">hex</span><span class="p">(</span><span class="n">rsi</span><span class="p">)[</span><span class="mi">2</span><span class="p">:],</span> <span class="nb">hex</span><span class="p">(</span><span class="n">rdx</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]),</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+   <span class="k">try</span><span class="p">:</span>
+      <span class="n">p</span><span class="o">.</span><span class="n">syscall</span><span class="p">()</span> <span class="c1"># stops after syscall</span>
+   <span class="k">except</span> <span class="n">ldbg</span><span class="o">.</span><span class="n">ProcessExitedException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+   <span class="n">rax</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_reg</span><span class="p">(</span><span class="s1">&#39;rax&#39;</span><span class="p">)</span>
+
+   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;= &#39;</span> <span class="o">+</span> <span class="nb">hex</span><span class="p">(</span><span class="n">rax</span><span class="p">)[</span><span class="mi">2</span><span class="p">:])</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="links">
 <h2>Links<a class="headerlink" href="#links" title="Permalink to this headline">¶</a></h2>

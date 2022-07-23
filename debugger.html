@@ -110,7 +110,7 @@ Do not use <a class="reference internal" href="#debugger.Debugger" title="debugg
 <dl class="py method">
 <dt id="debugger.Debugger.breakpoint">
 <code class="sig-name descname"><span class="pre">breakpoint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger.breakpoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a breakpoint</p>
+<dd><p>Adds a breakpoint</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -120,6 +120,20 @@ Do not use <a class="reference internal" href="#debugger.Debugger" title="debugg
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.get_breakpoint_at">
+<code class="sig-name descname"><span class="pre">get_breakpoint_at</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">ldbg.breakpoint.Breakpoint</span><a class="headerlink" href="#debugger.Debugger.get_breakpoint_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the breakpoint at address</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>addr</strong> (<em>int</em>) – The address of the breakpoint.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="breakpoint.html#breakpoint.Breakpoint" title="breakpoint.Breakpoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">breakpoint.Breakpoint</span></code></a> – The breakpoint if found, else None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -139,6 +153,17 @@ Do not use <a class="reference internal" href="#debugger.Debugger" title="debugg
 <dt id="debugger.Debugger.step">
 <code class="sig-name descname"><span class="pre">step</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes a single instruction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.syscall">
+<code class="sig-name descname"><span class="pre">syscall</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger.syscall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Continues process execution until a syscall occur, call it a second time to watch syscall return value</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>None</p>
