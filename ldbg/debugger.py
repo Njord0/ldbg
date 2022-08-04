@@ -66,11 +66,11 @@ class Debugger(ABC):
         self._x64 = x64 # weither it is a 64 bits process or not
         self._exception = None
         self._binary = lief.parse(path)
+        self._breakpoints = []
 
-        self._pid, self._stdin_fd, self._stdout_fd, self._stderr_fd = internals.create_process(path, parameters)
         binary = lief.parse(self._path)
 
-        self._breakpoints = []
+        self._pid, self._stdin_fd, self._stdout_fd, self._stderr_fd = internals.create_process(path, parameters)
 
         self._base_addr = int(self._parse_base_address(), 16)
 
@@ -79,7 +79,9 @@ class Debugger(ABC):
             entry += self._base_addr
 
         self.breakpoint(entry)
-        self.pcontinue()
+
+        if self.get_instruction_pointer() != entry: # fix for statics binaries
+            self.pcontinue()
 
         self._stdout = Stream(self._stdout_fd)
         self._stderr = Stream(self._stderr_fd)
