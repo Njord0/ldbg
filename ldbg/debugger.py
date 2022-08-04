@@ -128,7 +128,7 @@ class Debugger(ABC):
 
         return bp
 
-    def get_breakpoint_at(self, addr) -> Breakpoint:
+    def get_breakpoint_at(self, addr: int) -> Breakpoint:
         """Returns the breakpoint at address
 
         :param addr: The address of the breakpoint.
@@ -139,6 +139,18 @@ class Debugger(ABC):
             if breakpoint.addr == addr:
                 return breakpoint
         return None
+
+    def delete_breakpoint(self, bp: Breakpoint):
+        """Deletes a breakpoint
+
+        :param bp: The breakpoint to delete.
+        :type bp: :class:`breakpoint.Breakpoint`
+        """
+        if not bp in self._breakpoints:
+            return
+
+        bp.disable() # first disable the breakpoint
+        self._breakpoints.remove(bp)
 
     @handle_bp
     @handle_exception
