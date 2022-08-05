@@ -126,7 +126,7 @@ Do not use <a class="reference internal" href="#debugger.Debugger" title="debugg
 
 <dl class="py method">
 <dt id="debugger.Debugger.get_breakpoint_at">
-<code class="sig-name descname"><span class="pre">get_breakpoint_at</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">ldbg.breakpoint.Breakpoint</span><a class="headerlink" href="#debugger.Debugger.get_breakpoint_at" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_breakpoint_at</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">ldbg.breakpoint.Breakpoint</span><a class="headerlink" href="#debugger.Debugger.get_breakpoint_at" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the breakpoint at address</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -134,6 +134,39 @@ Do not use <a class="reference internal" href="#debugger.Debugger" title="debugg
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><a class="reference internal" href="breakpoint.html#breakpoint.Breakpoint" title="breakpoint.Breakpoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">breakpoint.Breakpoint</span></code></a> – The breakpoint if found, else None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.delete_breakpoint">
+<code class="sig-name descname"><span class="pre">delete_breakpoint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bp</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">ldbg.breakpoint.Breakpoint</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#debugger.Debugger.delete_breakpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a breakpoint</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bp</strong> (<a class="reference internal" href="breakpoint.html#breakpoint.Breakpoint" title="breakpoint.Breakpoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">breakpoint.Breakpoint</span></code></a>) – The breakpoint to delete.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.make_snapshot">
+<code class="sig-name descname"><span class="pre">make_snapshot</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">ldbg.snapshot.Snapshot</span><a class="headerlink" href="#debugger.Debugger.make_snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a memory snapshot of the process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">snapshot.Snapshot</span></code> – the memory snapshot</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="debugger.Debugger.restore_snapshot">
+<code class="sig-name descname"><span class="pre">restore_snapshot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">snapshot</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">ldbg.snapshot.Snapshot</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#debugger.Debugger.restore_snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restores a memory snapshot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

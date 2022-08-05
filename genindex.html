@@ -39,6 +39,7 @@
 <li class="toctree-l1"><a class="reference internal" href="breakpoint.html">Breakpoint</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exception.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="function.html">Function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snapshot.html">Snapshot</a></li>
 </ul>
 
         </div>
@@ -75,6 +76,7 @@
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
@@ -127,11 +129,13 @@
 </li>
       <li><a href="debugger.html#debugger.Debugger">Debugger (class in debugger)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="debugger.html#debugger.Debugger32">Debugger32 (class in debugger)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="debugger.html#debugger.Debugger64">Debugger64 (class in debugger)</a>
+</li>
+      <li><a href="debugger.html#debugger.Debugger.delete_breakpoint">delete_breakpoint() (debugger.Debugger method)</a>
 </li>
       <li><a href="breakpoint.html#breakpoint.Breakpoint.disable">disable() (breakpoint.Breakpoint method)</a>
 </li>
@@ -198,6 +202,18 @@
   </ul></td>
 </tr></table>
 
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="debugger.html#debugger.Debugger.make_snapshot">make_snapshot() (debugger.Debugger method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="snapshot.html#snapshot.Snapshot.memory">memory() (snapshot.Snapshot property)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -235,11 +251,15 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="stream.html#stream.Stream.read">read() (stream.Stream method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="debugger.html#debugger.Debugger.read_memory">read_memory() (debugger.Debugger method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="debugger.html#debugger.Debugger.read_string">read_string() (debugger.Debugger method)</a>
+</li>
+      <li><a href="snapshot.html#snapshot.Snapshot.regs">regs() (snapshot.Snapshot property)</a>
+</li>
+      <li><a href="debugger.html#debugger.Debugger.restore_snapshot">restore_snapshot() (debugger.Debugger method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -255,6 +275,8 @@
         <li><a href="debugger.html#debugger.Debugger64.set_reg">(debugger.Debugger64 method)</a>
 </li>
       </ul></li>
+      <li><a href="snapshot.html#snapshot.Snapshot">Snapshot (class in snapshot)</a>
+</li>
       <li><a href="debugger.html#debugger.Debugger.stderr">stderr() (debugger.Debugger property)</a>
 </li>
   </ul></td>
