@@ -9,6 +9,7 @@ from ldbg.internals import StoppedException, ExitedException
 from abc import ABC, abstractmethod
 from typing import List, Dict, Union
 from functools import wraps
+from lief.ELF import ARCH
 
 import lief
 import os
@@ -106,9 +107,9 @@ class Debugger(ABC):
         if elf is None:
             raise ValueError('Invalid elf file {path}')
 
-        if str(elf.header.machine_type) == 'ARCH.x86_64':
+        if elf.header.machine_type == ARCH.x86_64:
             return Debugger64(path, parameters)
-        elif str(elf.header.machine_type) == 'ARCH.i386':
+        elif elf.header.machine_type == ARCH.i386:
             return Debugger32(path, parameters)
 
         raise ValueError(f'Unsupported architecture: {elf.header.machine_type}')
