@@ -3,7 +3,7 @@ from ldbg.breakpoint import Breakpoint
 from ldbg.stream import Stream
 from ldbg.exceptions import ProcessExitedException, ProcessSignaledException
 from ldbg.function import Function, _parse_functions
-
+from ldbg.snapshot import Snapshot
 from ldbg.internals import StoppedException, ExitedException
 
 from abc import ABC, abstractmethod
@@ -64,7 +64,6 @@ class Debugger(ABC):
         self._path = str(os.path.realpath(path))
         #self._path = path.replace('./', '')
         self._parameters = parameters
-        self._x64 = x64 # weither it is a 64 bits process or not
         self._exception = None
         self._binary = lief.parse(path)
         self._breakpoints = []
@@ -152,6 +151,20 @@ class Debugger(ABC):
 
         bp.disable() # first disable the breakpoint
         self._breakpoints.remove(bp)
+
+    def make_snapshot(self) -> Snapshot:
+        """Returns a memory snapshot of the process
+        
+        :returns: :class:`snapshot.Snapshot` -- the memory snapshot
+        """
+        return Snapshot(self)
+
+    def restore_snapshot(self, snapshot: Snapshot) -> None:
+        """Restores a memory snapshot
+
+        :return: None
+        """
+        snapshot._restore()
 
     @handle_bp
     @handle_exception
