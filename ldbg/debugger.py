@@ -60,7 +60,7 @@ class Debugger(ABC):
     """The base debugger class, never instantiated.
     Do not use :class:`Debugger` constructor, use :func:`Debugger.debug` instead. 
     """
-    def __init__(self, path: str, parameters: List[str], x64=True):
+    def __init__(self, path: str, parameters: List[str], aslr: bool = False):
         self._path = str(os.path.realpath(path))
         #self._path = path.replace('./', '')
         self._parameters = parameters
@@ -70,7 +70,7 @@ class Debugger(ABC):
 
         binary = lief.parse(self._path)
 
-        self._pid, self._stdin_fd, self._stdout_fd, self._stderr_fd = internals.create_process(path, parameters)
+        self._pid, self._stdin_fd, self._stdout_fd, self._stderr_fd = internals.create_process(path, aslr, parameters)
 
         self._base_addr = int(self._parse_base_address(), 16)
 
@@ -90,26 +90,27 @@ class Debugger(ABC):
         self._functions = _parse_functions(self._binary, self._base_addr)
 
     @staticmethod
-    def debug(path: str, parameters: List[str]=[]):
+    def debug(path: str, parameters: List[str]=[], aslr: bool = False):
         """Starts debugging a file
 
         :param path: The absolute or relative path to the executable.
         :type path: str
         :param parameters: Commands line arguments to be passed to the program.
         :type parameters: List[str]
+        :param aslr: Weither or not the ASLR will be enabled for the child process, True = enable, False = disabled
+        :type aslr: bool
         :returns: :class:`Debugger32` or :class:`Debugger64`
         :raises: ValueError - if the file is not an ELF file or if it's not a supported architecture.
 
         """
         elf = lief.parse(path)
-
         if elf is None:
             raise ValueError('Invalid elf file {path}')
 
         if elf.header.machine_type == ARCH.x86_64:
-            return Debugger64(path, parameters)
+            return Debugger64(path, parameters, aslr=aslr)
         elif elf.header.machine_type == ARCH.i386:
-            return Debugger32(path, parameters)
+            return Debugger32(path, parameters, aslr=aslr)
 
         raise ValueError(f'Unsupported architecture: {elf.header.machine_type}')
 
@@ -407,8 +408,8 @@ class Debugger(ABC):
 class Debugger32(Debugger):
     """The debugger class for 32 bits process, do not instantiate manualy, use :func:`Debugger.debug`.
     """
-    def __init__(self, path: str, parameters: List[str], x64=False):
-        super().__init__(path, parameters, x64=x64)
+    def __init__(self, path: str, parameters: List[str], aslr: bool = False):
+        super().__init__(path, parameters, aslr=aslr)
 
     @handle_exception
     def get_regs(self) -> Dict:
@@ -456,8 +457,8 @@ class Debugger32(Debugger):
 class Debugger64(Debugger):
     """The debugger class for 64 bits process, do not instantiate manualy, use :func:`Debugger.debug`.
     """
-    def __init__(self, path: str, parameters: List[str], x64=True):
-        super().__init__(path, parameters, x64=x64)
+    def __init__(self, path: str, parameters: List[str], aslr: bool = False):
+        super().__init__(path, parameters, aslr=aslr)
 
     @handle_exception
     def get_regs(self) -> Dict:

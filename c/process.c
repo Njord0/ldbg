@@ -9,6 +9,7 @@
 #include <errno.h> /* for errno global variable */
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <sys/personality.h>
 
 #include "exception.h"
 #include "process.h"
@@ -19,11 +20,12 @@ create_process(PyObject* self, PyObject* args)
 {
     char* tok;
     int cols;
+    int aslr_enabled;
 
     PyObject* listObj;
     const char* path;
 
-    if (!PyArg_ParseTuple(args, "sO!", &path, &PyList_Type, &listObj, &cols, &tok))
+    if (!PyArg_ParseTuple(args, "spO!", &path, &aslr_enabled, &PyList_Type, &listObj, &cols, &tok))
         return NULL;
 
     if (!check_file_exists(path))
@@ -55,6 +57,9 @@ create_process(PyObject* self, PyObject* args)
         dup2(pout[1], 1);
         dup2(pin[0], 0);
         dup2(perr[1], 2);
+
+        if (aslr_enabled == 0) // no aslr
+            personality(ADDR_NO_RANDOMIZE);
 
         ptrace(PTRACE_TRACEME, 0, NULL, NULL);     
         execve(path, execve_arguments, NULL);
