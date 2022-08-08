@@ -7,7 +7,7 @@ class Stream:
         self._fd = fd
         self._writeable = writeable
         
-    def read(self, n: int) -> bytes:
+    def read(self, n: int = None) -> bytes:
         """Reads `n` bytes from stream
 
         :param n: The number of bytes to read.
@@ -15,6 +15,12 @@ class Stream:
         :returns: bytes -- the read bytes.
         :raises: ValueError - if `n` is negative 
         """
+        if n is None: # reading until EOF
+            out = b''
+            while (c:=os.read(self._fd, 1)):
+                out += c
+            return out
+
         if n <= 0:
             raise ValueError('n must be a positive integer')
 

@@ -113,7 +113,7 @@ class Debugger(ABC):
 
         raise ValueError(f'Unsupported architecture: {elf.header.machine_type}')
 
-    def breakpoint(self, addr: int, enabled: bool=True):
+    def breakpoint(self, addr: int, enabled: bool=True, relative: bool=False):
         """Adds a breakpoint
         
         :param addr: The address of the breakpoint.
@@ -121,8 +121,10 @@ class Debugger(ABC):
         :param enabled: Weither or not the breakpoint is enabled.
         :type enabled: bool
         :returns: None
-
         """
+        if relative:
+            addr += self._base_addr
+
         bp = Breakpoint(addr, self._pid, enabled)
         self._breakpoints.append(bp)
 
