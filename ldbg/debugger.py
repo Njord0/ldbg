@@ -177,6 +177,12 @@ class Debugger(ABC):
         :returns: None
 
         """
+        ip = self.get_instruction_pointer()
+        bp = self.get_breakpoint_at(ip)
+
+        if bp:
+            self.step()
+
         internals.pcontinue(self.pid)
 
     @handle_bp
