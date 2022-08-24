@@ -41,9 +41,6 @@ def handle_bp(method):
 def handle_exception(method):
     @wraps(method)
     def wrapper(self, *args):
-        if self._exception:
-            raise self._exception
-
         try:
             ret = method(self, *args)
             return ret
