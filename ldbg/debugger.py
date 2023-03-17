@@ -28,11 +28,11 @@ def handle_bp(method):
         if bp:
             bp.enable()
 
-        ip = self.get_instruction_pointer()
-        bp = self._get_breakpoint_at(ip - 1)
+        new_ip = self.get_instruction_pointer()
+        new_bp = self._get_breakpoint_at(new_ip - 1)
 
-        if bp:
-            self._set_instruction_pointer(ip - 1) # because interruption instruction is one byte long
+        if new_bp and new_ip != ip+1:
+            self._set_instruction_pointer(new_ip - 1) # because interruption instruction is one byte long
 
         return ret
     
